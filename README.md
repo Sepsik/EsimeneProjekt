@@ -1,1 +1,4 @@
-# EsimeneProjekt
+# Projekt - **NO**deadplants
+
+Programm, kus saab otsida informatsiooni erinevate taimede kohta. Mõningad enamlevinud taimed on ette salvestatud, kuid kasutajal on võimalik sinna ka ise uut infot lisada/muuta/eemaldada. Näiteks, kui tuuakse kontorisse uus taim või kingitakse mingi lill ja seda programmis pole, siis saab selle info lisada.  Soovitud lilled saab ka eraldi salvestada nö. programmi avalehele, et oleks parem ülevaade.  Taimede juurde saab märkida ka, kui tihti peab mingil aastaajal konkreetset taime kastma. Ka saab sisestada, millal oli viimane kastmine ning programm ütleb, millal peab olema järgmine ning ühtlasi saab selle kohta ka meeldetuletuse seadistada.  
+Miks selline mõte? Põhiline inspiratsioon tuli minu puhkusel oleva kolleegi hingevaakuvast taimest + ka sellest, et olen lilledega üks paras kobakäpp.  Et siis tulevikus **NOdeadplants**
