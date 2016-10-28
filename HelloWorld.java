@@ -1,6 +1,4 @@
 
-package com.example.helloworld;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
@@ -32,3 +30,5 @@ public class HelloWorld extends Application {
         primaryStage.show();
     }
 }
+
+
