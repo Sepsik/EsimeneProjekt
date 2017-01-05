@@ -39,8 +39,6 @@ public class PlantScene {
         plantDescription.setPrefHeight(300);
         plantDescription.setPrefWidth(500);
         plantDescription.setFont(new Font("Arial", 14));
-
-        //plantDescription.setEditable(false);
         plantDescription.setStyle("-fx-focus-color: black; -fx-text-box-border: black;");
 
         wateringIntervalDays.setPromptText("in days");
