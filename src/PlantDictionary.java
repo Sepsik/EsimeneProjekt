@@ -27,6 +27,7 @@ public class PlantDictionary {
     }
 
     // salvestan kõik taimed faili
+
     // http://avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
     void saveDatabase() {
         try {

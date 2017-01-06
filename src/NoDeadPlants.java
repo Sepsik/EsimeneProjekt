@@ -31,6 +31,7 @@ public class NoDeadPlants extends Application {
 
             TextField searchInput = new TextField();
             searchInput.setMaxWidth(280);
+            searchInput.setStyle("-fx-border-color: black;");
             searchInput.setPromptText("name a plant");
             searchInput.setFocusTraversable(false);
 
