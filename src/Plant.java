@@ -2,10 +2,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Plant implements Serializable {
-    String name;
-    String description;
-    LocalDate lastWatered;
-    int wateringIntervalDays;
+    private String name;
+    private String description;
+    private LocalDate lastWatered;
+    private int wateringIntervalDays;
 
     public String getName() {
         return name;

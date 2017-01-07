@@ -11,9 +11,12 @@ import javafx.stage.Stage;
 
 public class NoDeadPlants extends Application {
 
-    Stage window;
-    Image logo = new Image("file:NoDeadPlants.png");
-    PlantDictionary dictionary = new PlantDictionary();
+    private StackPane layout = new StackPane();
+    private Image logo = new Image("file:NoDeadPlants.png");
+    private ImageView logoIV = new ImageView();
+    private PlantDictionary dictionary = new PlantDictionary();
+    private TextField searchInput = new TextField();
+
 
 
     public static void main(String[] args){
@@ -21,20 +24,17 @@ public class NoDeadPlants extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage window) throws Exception {
 
-            window = primaryStage;
+
             window.setTitle("NoDeadPlants");
 
-            StackPane layout = new StackPane();
             layout.setStyle("-fx-background-color: transparent;");
 
-            TextField searchInput = new TextField();
             searchInput.setMaxWidth(280);
             searchInput.setStyle("-fx-border-color: black;");
             searchInput.setPromptText("name a plant");
             searchInput.setFocusTraversable(false);
-
 
             searchInput.setOnKeyPressed(ke -> {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
@@ -52,7 +52,6 @@ public class NoDeadPlants extends Application {
             });
 
 
-            ImageView logoIV = new ImageView();
             logoIV.setImage(logo);
             logoIV.setTranslateY(-50);
 

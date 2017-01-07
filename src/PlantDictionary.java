@@ -5,7 +5,9 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class PlantDictionary {
+
     private Map<String, Plant> plants;
 
     public PlantDictionary() {
@@ -26,12 +28,11 @@ public class PlantDictionary {
         saveDatabase();
     }
 
-    // salvestan kõik taimed faili
-
-    // http://avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+    //Salvestan kõik taimed faili
+    //http://avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
     void saveDatabase() {
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("database.db"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("plants.db"));
             os.writeObject(plants);
             os.flush();
             os.close();
@@ -40,10 +41,10 @@ public class PlantDictionary {
             throw new RuntimeException(e);
         }
     }
-    // loen kõik taimed failist mällu
+    //Loen kõik taimed failist mällu
     void readDatabase() {
         try {
-            ObjectInputStream is = new ObjectInputStream(new FileInputStream("database.db"));
+            ObjectInputStream is = new ObjectInputStream(new FileInputStream("plants.db"));
             plants = (Map<String, Plant>) is.readObject();
             is.close();
         }

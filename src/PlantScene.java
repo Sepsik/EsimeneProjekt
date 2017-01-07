@@ -15,24 +15,25 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 
-
-
 public class PlantScene {
 
-    Stage window;
-    Scene oldScene;
-    GridPane upperGrid= new GridPane();
-    GridPane lowerGrid= new GridPane();
-    BorderPane border = new BorderPane();
-    StackPane stackpane = new StackPane();
-    TextField wateringIntervalDays = new TextField();
-    DatePicker lastWatered = new DatePicker();
-    Label result = new Label();
+    private Stage window;
+    private Scene oldScene;
+    private PlantDictionary dictionary;
+    private GridPane upperGrid= new GridPane();
+    private GridPane lowerGrid= new GridPane();
+    private BorderPane border = new BorderPane();
+    private StackPane stackpane = new StackPane();
+    private TextArea plantDescription = new TextArea();
+    private TextField wateringIntervalDays = new TextField();
+    private DatePicker lastWatered = new DatePicker();
+    private Label result = new Label();
 
 
 
     public PlantScene(Stage window, PlantDictionary dictionary, Plant plant) {
         this.window = window;
+        this.dictionary = dictionary;
         border.setTop(upperGrid);
         border.setCenter(stackpane);
         border.setBottom(lowerGrid);
@@ -52,7 +53,7 @@ public class PlantScene {
         Text plantTitle = new Text(plant.getName().toUpperCase());
         plantTitle.setFont(Font.font("Impact", 35));
 
-        TextArea plantDescription = new TextArea(plant.getDescription());
+        plantDescription.setText(plant.getDescription());
         plantDescription.setWrapText(true);
         plantDescription.setMaxHeight(280);
         plantDescription.setPrefWidth(500);
@@ -78,43 +79,28 @@ public class PlantScene {
         lastWatered.setMinWidth(200);
         lastWatered.setStyle("-fx-border-color: black;");
 
-        result.setTranslateX(-60);
         result.setTranslateY(182);
+        result.setMinWidth(200);
         result.setFont(Font.font("Arial", FontPosture.ITALIC, 10));
-
 
         wateringIntervalDays.setPromptText("in days");
         if (plant.getWateringIntervalDays() != 0) {
             wateringIntervalDays.setText(String.valueOf(plant.getWateringIntervalDays()));
         }
-        lastWatered.setValue(plant.getLastWatered());
 
+        lastWatered.setValue(plant.getLastWatered());
 
         //Nupud
         Button backButton = new Button("back");
         backButton.setStyle("-fx-font: 14 impact; -fx-background-color: black ; -fx-text-fill: yellowgreen;");
-
         backButton.setOnAction(e -> goBack());
 
         Button saveButton = new Button("save");
         saveButton.setStyle("-fx-font: 14 impact; -fx-background-color: black ; -fx-text-fill: yellowgreen;");
-
-        saveButton.setOnAction(event -> {
-            try {
-                plant.setDescription(plantDescription.getText());
-                plant.setLastWatered(lastWatered.getValue());
-                plant.setWateringIntervalDays(Integer.parseInt(wateringIntervalDays.getText()));
-                dictionary.save(plant);
-                goBack();
-            }
-            catch (Exception e) {
-                result.setText("Cannot save");
-            }
-        });
+        saveButton.setOnAction(event -> savePlant(plant));
 
         Button deleteButton = new Button("delete");
         deleteButton.setStyle("-fx-font: 14 impact; -fx-background-color: black ; -fx-text-fill: yellowgreen;");
-
         deleteButton.setOnAction(e -> {
             dictionary.delete(plant);
             goBack();
@@ -139,20 +125,55 @@ public class PlantScene {
         updater();
     }
 
+    void savePlant(Plant plant) {
+            try {
+                if (isInputValid()) {
+                    plant.setDescription(plantDescription.getText());
+                    plant.setLastWatered(lastWatered.getValue());
+                    plant.setWateringIntervalDays(Integer.parseInt(wateringIntervalDays.getText()));
+                    dictionary.save(plant);
+                    goBack();}
+                else {
+                    result.setText("Cannot save");
+                    }
+                }
+            catch(Exception e){
+                    result.setText("Cannot save");
+                }
+
+        }
+
     void goBack() {
         window.setScene(oldScene);
     }
 
     void updater() {
         try {
-            // http://stackoverflow.com/questions/27005861/calculate-days-between-two-dates-in-java-8
-            long daysSinceLastWatered = ChronoUnit.DAYS.between(lastWatered.getValue(), LocalDate.now());
-            int interval = Integer.parseInt(wateringIntervalDays.getText());
-            long daysToNextWatering = interval - daysSinceLastWatered;
-            result.setText(daysToNextWatering + " days to watering");
+            if (isInputValid()){
+                //http://stackoverflow.com/questions/27005861/calculate-days-between-two-dates-in-java-8
+                long daysSinceLastWatered = ChronoUnit.DAYS.between(lastWatered.getValue(), LocalDate.now());
+                int interval = Integer.parseInt(wateringIntervalDays.getText());
+                long daysToNextWatering = interval - daysSinceLastWatered;
+                result.setText(daysToNextWatering + " days to watering");
+            }
         }
         catch (Exception e) {
             result.setText("Cannot calculate");
         }
+    }
+
+    boolean isInputValid(){
+        if (Integer.parseInt(wateringIntervalDays.getText()) < 0){
+            result.setText("Interval cannot be negative");
+            return false;
+        }
+        else if (lastWatered.getValue().isAfter(LocalDate.now())){
+            result.setText("Date cannot be in future");
+            return false;
+        }
+        else{
+            return true;
+        }
+
     }
 }
