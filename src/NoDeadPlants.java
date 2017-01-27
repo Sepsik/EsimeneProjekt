@@ -8,8 +8,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-//Muudan faili, et harjutada Git'i
-
 public class NoDeadPlants extends Application {
 
     private StackPane layout = new StackPane();
